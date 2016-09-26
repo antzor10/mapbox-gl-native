@@ -3,6 +3,8 @@
 #include <mbgl/gl/object.hpp>
 #include <mbgl/gl/state.hpp>
 #include <mbgl/gl/value.hpp>
+#include <mbgl/gl/vertex_buffer.hpp>
+#include <mbgl/gl/index_buffer.hpp>
 #include <mbgl/util/noncopyable.hpp>
 
 #include <memory>
@@ -21,12 +23,24 @@ public:
     UniqueProgram createProgram();
     UniqueShader createVertexShader();
     UniqueShader createFragmentShader();
-    UniqueBuffer createBuffer();
     UniqueTexture createTexture();
     UniqueVertexArray createVertexArray();
     UniqueFramebuffer createFramebuffer();
 
-    void uploadBuffer(BufferType, size_t, void*);
+    template <class V>
+    VertexBuffer<V> createVertexBuffer(std::vector<V>&& v) {
+        return VertexBuffer<V> {
+            v.size(),
+            createVertexBuffer(v.data(), v.size() * sizeof(V))
+        };
+    }
+
+    template <class P>
+    IndexBuffer<P> createIndexBuffer(std::vector<P>&& v) {
+        return IndexBuffer<P> {
+            createIndexBuffer(v.data(), v.size() * sizeof(P))
+        };
+    }
 
     // Actually remove the objects we marked as abandoned with the above methods.
     // Only call this while the OpenGL context is exclusive to this thread.
@@ -80,6 +94,9 @@ public:
     State<value::BindVertexArray> vertexArrayObject;
 
 private:
+    UniqueBuffer createVertexBuffer(const void* data, std::size_t size);
+    UniqueBuffer createIndexBuffer(const void* data, std::size_t size);
+
     friend detail::ProgramDeleter;
     friend detail::ShaderDeleter;
     friend detail::BufferDeleter;

@@ -28,13 +28,13 @@ void RasterBucket::setImage(PremultipliedImage image) {
 }
 
 void RasterBucket::drawRaster(RasterShader& shader,
-                              StaticRasterVertexBuffer& vertices,
+                              gl::VertexBuffer<RasterVertex>& vertices,
                               VertexArrayObject& array,
                               gl::Context& context) {
     raster.bind(context, 0, Raster::Scaling::Linear);
     raster.bind(context, 1, Raster::Scaling::Linear);
     array.bind(shader, vertices, BUFFER_OFFSET_0, context);
-    MBGL_CHECK_ERROR(glDrawArrays(GL_TRIANGLE_STRIP, 0, (GLsizei)vertices.index()));
+    MBGL_CHECK_ERROR(glDrawArrays(GL_TRIANGLE_STRIP, 0, vertices.vertexCount));
 }
 
 bool RasterBucket::hasData() const {
