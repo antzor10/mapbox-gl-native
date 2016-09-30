@@ -67,8 +67,12 @@ set(MBGL_CORE_FILES
     src/mbgl/gl/index_buffer.hpp
     src/mbgl/gl/object.cpp
     src/mbgl/gl/object.hpp
+    src/mbgl/gl/shader.cpp
+    src/mbgl/gl/shader.hpp
     src/mbgl/gl/state.hpp
     src/mbgl/gl/types.hpp
+    src/mbgl/gl/uniform.cpp
+    src/mbgl/gl/uniform.hpp
     src/mbgl/gl/value.cpp
     src/mbgl/gl/value.hpp
     src/mbgl/gl/vao.cpp
@@ -198,13 +202,9 @@ set(MBGL_CORE_FILES
     src/mbgl/shader/raster_vertex.hpp
     src/mbgl/shader/sdf_shader.cpp
     src/mbgl/shader/sdf_shader.hpp
-    src/mbgl/shader/shader.cpp
-    src/mbgl/shader/shader.hpp
     src/mbgl/shader/shaders.hpp
     src/mbgl/shader/texture_rect_vertex.cpp
     src/mbgl/shader/texture_rect_vertex.hpp
-    src/mbgl/shader/uniform.cpp
-    src/mbgl/shader/uniform.hpp
 
     # sprite
     include/mbgl/sprite/sprite_image.hpp
@@ -225,6 +225,7 @@ set(MBGL_CORE_FILES
     include/mbgl/storage/response.hpp
     src/mbgl/storage/asset_file_source.hpp
     src/mbgl/storage/http_file_source.hpp
+    src/mbgl/storage/local_file_source.hpp
     src/mbgl/storage/network_status.cpp
     src/mbgl/storage/resource.cpp
     src/mbgl/storage/response.cpp
